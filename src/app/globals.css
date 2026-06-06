@@ -1,26 +1,260 @@
 @import "tailwindcss";
 
+@theme {
+  --color-theme-primary: var(--theme-primary);
+  --color-theme-accent: var(--theme-accent);
+  --color-theme-bg-start: var(--theme-bg-start);
+  --color-theme-bg-end: var(--theme-bg-end);
+  --color-theme-text-main: var(--theme-text-main);
+  --color-theme-text-muted: var(--theme-text-muted);
+  --color-theme-card-bg: var(--theme-card-bg);
+  --color-theme-card-border: var(--theme-card-border);
+  --color-theme-glow: var(--theme-glow);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Default Theme: Sky Blue */
+  --theme-primary: hsl(205, 90%, 55%);
+  --theme-primary-rgb: 59, 130, 246;
+  --theme-accent: hsl(199, 89%, 48%);
+  --theme-bg-start: #f0f7ff;
+  --theme-bg-end: #d0e7ff;
+  --theme-text-main: hsl(209, 62%, 18%);
+  --theme-text-muted: hsl(209, 25%, 45%);
+  --theme-card-bg: rgba(255, 255, 255, 0.42);
+  --theme-card-border: rgba(255, 255, 255, 0.55);
+  --theme-glow: rgba(59, 130, 246, 0.12);
+  
+  --font-sans: var(--font-outfit), var(--font-geist-sans), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Theme: Sky Blue Override (Explicit) */
+.theme-sky {
+  --theme-primary: hsl(205, 90%, 55%);
+  --theme-primary-rgb: 59, 130, 246;
+  --theme-accent: hsl(199, 89%, 48%);
+  --theme-bg-start: #f0f7ff;
+  --theme-bg-end: #d0e7ff;
+  --theme-text-main: hsl(209, 62%, 18%);
+  --theme-text-muted: hsl(209, 25%, 45%);
+  --theme-card-bg: rgba(255, 255, 255, 0.42);
+  --theme-card-border: rgba(255, 255, 255, 0.55);
+  --theme-glow: rgba(59, 130, 246, 0.12);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Theme: Forest */
+.theme-forest {
+  --theme-primary: hsl(142, 60%, 42%);
+  --theme-primary-rgb: 43, 163, 93;
+  --theme-accent: hsl(152, 65%, 38%);
+  --theme-bg-start: #f0faf4;
+  --theme-bg-end: #d1f2dd;
+  --theme-text-main: hsl(160, 60%, 15%);
+  --theme-text-muted: hsl(160, 22%, 40%);
+  --theme-card-bg: rgba(255, 255, 255, 0.42);
+  --theme-card-border: rgba(255, 255, 255, 0.55);
+  --theme-glow: rgba(34, 197, 94, 0.12);
+}
+
+/* Theme: Lavender */
+.theme-lavender {
+  --theme-primary: hsl(262, 72%, 63%);
+  --theme-primary-rgb: 153, 102, 255;
+  --theme-accent: hsl(278, 62%, 58%);
+  --theme-bg-start: #f7f2ff;
+  --theme-bg-end: #e5d7ff;
+  --theme-text-main: hsl(270, 55%, 20%);
+  --theme-text-muted: hsl(270, 22%, 46%);
+  --theme-card-bg: rgba(255, 255, 255, 0.42);
+  --theme-card-border: rgba(255, 255, 255, 0.55);
+  --theme-glow: rgba(168, 85, 247, 0.12);
+}
+
+/* Theme: Peach */
+.theme-peach {
+  --theme-primary: hsl(16, 92%, 62%);
+  --theme-primary-rgb: 249, 115, 87;
+  --theme-accent: hsl(24, 95%, 56%);
+  --theme-bg-start: #fff3f0;
+  --theme-bg-end: #ffd6cc;
+  --theme-text-main: hsl(16, 60%, 22%);
+  --theme-text-muted: hsl(16, 25%, 46%);
+  --theme-card-bg: rgba(255, 255, 255, 0.42);
+  --theme-card-border: rgba(255, 255, 255, 0.55);
+  --theme-glow: rgba(249, 115, 22, 0.12);
+}
+
+/* Theme: Mint */
+.theme-mint {
+  --theme-primary: hsl(168, 62%, 43%);
+  --theme-primary-rgb: 36, 178, 142;
+  --theme-accent: hsl(174, 75%, 38%);
+  --theme-bg-start: #effdfa;
+  --theme-bg-end: #cef5ec;
+  --theme-text-main: hsl(174, 65%, 15%);
+  --theme-text-muted: hsl(174, 25%, 40%);
+  --theme-card-bg: rgba(255, 255, 255, 0.42);
+  --theme-card-border: rgba(255, 255, 255, 0.55);
+  --theme-glow: rgba(20, 184, 166, 0.12);
+}
+
+/* Theme: Sunrise */
+.theme-sunrise {
+  --theme-primary: hsl(38, 96%, 52%);
+  --theme-primary-rgb: 245, 158, 11;
+  --theme-accent: hsl(20, 95%, 58%);
+  --theme-bg-start: #fffaf0;
+  --theme-bg-end: #ffe8cc;
+  --theme-text-main: hsl(24, 65%, 20%);
+  --theme-text-muted: hsl(24, 25%, 45%);
+  --theme-card-bg: rgba(255, 255, 255, 0.42);
+  --theme-card-border: rgba(255, 255, 255, 0.55);
+  --theme-glow: rgba(245, 158, 11, 0.12);
+}
+
+/* Dark Mode Overrides (Night Mode) */
+.mode-night {
+  --theme-card-bg: rgba(15, 23, 42, 0.48);
+  --theme-card-border: rgba(255, 255, 255, 0.08);
+  --theme-text-main: #f8fafc;
+  --theme-text-muted: #94a3b8;
+  --theme-bg-start: #0f172a;
+  --theme-bg-end: #020617;
+  --theme-glow: rgba(255, 255, 255, 0.02);
+}
+
+/* Automatically darken all white card panels & inputs in night mode */
+.mode-night input,
+.mode-night textarea,
+.mode-night .bg-white,
+.mode-night .bg-white\/40,
+.mode-night .bg-white\/50,
+.mode-night .bg-white\/65,
+.mode-night .bg-white\/70,
+.mode-night .bg-white\/80 {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.mode-night .text-theme-text-main {
+  color: #f8fafc !important;
+}
+
+.mode-night .text-theme-text-muted {
+  color: #94a3b8 !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--theme-text-main);
+  background-color: var(--theme-bg-start);
+  font-family: var(--font-sans);
+  transition: background-color 0.6s ease, color 0.5s ease;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism utility - iOS material acrylic styling */
+.glass {
+  background: var(--theme-card-bg);
+  backdrop-filter: saturate(190%) blur(24px);
+  -webkit-backdrop-filter: saturate(190%) blur(24px);
+  border: 1px solid var(--theme-card-border);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.03), inset 0 1px 0 0 rgba(255, 255, 255, 0.45);
+}
+
+.glass-interactive {
+  background: var(--theme-card-bg);
+  backdrop-filter: saturate(190%) blur(24px);
+  -webkit-backdrop-filter: saturate(190%) blur(24px);
+  border: 1px solid var(--theme-card-border);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.03), inset 0 1px 0 0 rgba(255, 255, 255, 0.45);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 45px -10px var(--theme-glow), inset 0 1px 0 0 rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+/* Custom Scrollbar for Notion elegance */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Animations for Background Elements */
+@keyframes float-clouds-slow {
+  0% { transform: translateX(-10%); }
+  100% { transform: translateX(110%); }
+}
+
+@keyframes float-clouds-medium {
+  0% { transform: translateX(-20%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes float-birds {
+  0% { transform: translate(-10%, 10%) scale(0.8); }
+  50% { transform: translate(50%, -10%) scale(0.9); }
+  100% { transform: translate(110%, -20%) scale(0.8); }
+}
+
+@keyframes drift-particle {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(150px, -400px) rotate(360deg); opacity: 0; }
+}
+
+/* Animation classes */
+.cloud-slow {
+  animation: float-clouds-slow 90s linear infinite;
+}
+
+.cloud-medium {
+  animation: float-clouds-medium 55s linear infinite;
+}
+
+.bird-flight {
+  animation: float-birds 25s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.particle {
+  animation: drift-particle 12s ease-in-out infinite;
+}
+
+/* Pulse Glow Effect for Primary Mission */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px 0 var(--theme-glow), 0 0 10px 0 var(--theme-glow);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px var(--theme-glow), 0 0 30px 6px var(--theme-glow);
+  }
+}
+
+.mission-glowing {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Custom lock animation shaking on hover */
+@keyframes lock-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.lock-hover:hover .lock-icon {
+  animation: lock-wiggle 0.4s ease-in-out infinite;
 }
