@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useApp } from '@/context/AppContext';
-import { formatDate, DailyLog } from '@/lib/storage';
+import { formatDate, DailyLog, parseLocalDate } from '@/lib/storage';
 import { motion } from 'framer-motion';
 import { Flame, Trophy, TrendingUp, Calendar, CheckSquare, Award, Sparkles } from 'lucide-react';
 
@@ -18,7 +18,7 @@ export default function DashboardStats({ selectedDate }: { selectedDate: string 
 
   // 2. Weekly Score (Sum of scores for the last 7 calendar days up to selectedDate)
   const calculateWeeklyScore = (): number => {
-    const date = new Date(selectedDate);
+    const date = parseLocalDate(selectedDate);
     let scoreSum = 0;
     for (let i = 0; i < 7; i++) {
       const current = new Date(date);

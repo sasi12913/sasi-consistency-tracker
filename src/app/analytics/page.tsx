@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
-import { formatDate, DailyLog, CHECKLIST_ITEMS } from '@/lib/storage';
+import { formatDate, DailyLog, CHECKLIST_ITEMS, parseLocalDate } from '@/lib/storage';
 import Heatmap from '@/components/Heatmap';
 import { motion } from 'framer-motion';
 import {
@@ -60,7 +60,7 @@ export default function AnalyticsPage() {
     // Take the last 15 logs
     const sliceLogs = logsList.slice(-15);
     return sliceLogs.map(log => ({
-      date: new Date(log.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      date: parseLocalDate(log.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
       score: log.score,
       consistency: log.consistencyScore
     }));
@@ -72,7 +72,7 @@ export default function AnalyticsPage() {
     
     logsList.forEach(log => {
       const mKey = log.date.substring(0, 7); // YYYY-MM
-      const mName = new Date(log.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+      const mName = parseLocalDate(log.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
       
       if (!monthsGroup[mKey]) {
         monthsGroup[mKey] = { monthName: mName, set: 0, completed: 0 };

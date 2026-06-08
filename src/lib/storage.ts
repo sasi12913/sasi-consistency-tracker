@@ -98,12 +98,23 @@ export const DEFAULT_PREFERENCES: UserPreferences = {
   targetSleepTime: '23:30'
 };
 
+// Parses a YYYY-MM-DD string into a local Date object at midnight
+export function parseLocalDate(dateStr: string): Date {
+  if (!dateStr) return new Date();
+  const parts = dateStr.split('-');
+  if (parts.length === 3) {
+    const [year, month, day] = parts.map(Number);
+    return new Date(year, month - 1, day);
+  }
+  return new Date(dateStr);
+}
+
 // Utility to calculate distance of dates in days
 export function getDateDifference(d1: string, d2: string): number {
-  const date1 = new Date(d1);
-  const date2 = new Date(d2);
+  const date1 = parseLocalDate(d1);
+  const date2 = parseLocalDate(d2);
   const diffTime = Math.abs(date2.getTime() - date1.getTime());
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return Math.round(diffTime / (1000 * 60 * 60 * 24));
 }
 
 // Formats Date object to YYYY-MM-DD
@@ -135,7 +146,7 @@ export function calculateLogScore(log: Partial<DailyLog>): number {
 // Initial seed data generator (June 7 to June 25, 2026, representing mock history for testing lock unlocks!)
 export function generateMockLogs(): Record<string, DailyLog> {
   const mockLogs: Record<string, DailyLog> = {};
-  const startDate = new Date(JOURNEY_START_DATE);
+  const startDate = parseLocalDate(JOURNEY_START_DATE);
   
   // We will seed mock history up to June 26, 2026 (approx 20 days) to allow users to see a "semi-filled" month
   // and see what is required to unlock July.
@@ -317,7 +328,7 @@ export function calculateStreak(logs: Record<string, DailyLog>): Streak {
   let prevDate: Date | null = null;
 
   for (let i = 0; i < sortedDates.length; i++) {
-    const currentDate = new Date(sortedDates[i]);
+    const currentDate = parseLocalDate(sortedDates[i]);
     if (prevDate === null) {
       tempStreak = 1;
     } else {
@@ -349,9 +360,9 @@ export interface WeekPeriod {
 }
 
 export function getWeeksRange(toDateStr?: string): WeekPeriod[] {
-  const start = new Date(JOURNEY_START_DATE);
-  const endLimit = new Date(JOURNEY_END_DATE);
-  const targetDate = toDateStr ? new Date(toDateStr) : new Date();
+  const start = parseLocalDate(JOURNEY_START_DATE);
+  const endLimit = parseLocalDate(JOURNEY_END_DATE);
+  const targetDate = toDateStr ? parseLocalDate(toDateStr) : new Date();
   
   const weeks: WeekPeriod[] = [];
   let currentStart = new Date(start);

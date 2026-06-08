@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
-import { JOURNEY_START_DATE, formatDate, DailyLog, CHECKLIST_ITEMS } from '@/lib/storage';
+import { JOURNEY_START_DATE, formatDate, DailyLog, CHECKLIST_ITEMS, parseLocalDate } from '@/lib/storage';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Target, CheckCircle2, ChevronRight, X } from 'lucide-react';
 
@@ -18,7 +18,7 @@ export default function Heatmap({ onSelectDate, selectedDate }: HeatmapProps) {
 
   useEffect(() => {
     // Generate the 208 days of the journey
-    const start = new Date(JOURNEY_START_DATE);
+    const start = parseLocalDate(JOURNEY_START_DATE);
     const tempDays: Date[] = [];
     for (let i = 0; i < 208; i++) {
       const current = new Date(start);
@@ -252,8 +252,8 @@ export default function Heatmap({ onSelectDate, selectedDate }: HeatmapProps) {
               <div className="flex items-center space-x-2 text-xs font-bold text-theme-primary">
                 <Calendar size={14} />
                 <span>
-                  {new Date(selectedLog.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
-                </span>
+                {parseLocalDate(selectedLog.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+              </span>
               </div>
               <h4 className="text-lg font-black text-theme-text-main">
                 Daily Summary (Score: {selectedLog.score} / 14)

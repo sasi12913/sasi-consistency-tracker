@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
-import { JOURNEY_START_DATE, JOURNEY_END_DATE } from '@/lib/storage';
+import { JOURNEY_START_DATE, JOURNEY_END_DATE, parseLocalDate } from '@/lib/storage';
 import { Compass, Calendar, Flame } from 'lucide-react';
 
 export default function Header() {
@@ -22,8 +22,8 @@ export default function Header() {
     setCurrentDateStr(today.toLocaleDateString('en-US', options));
 
     // Calculate journey stats
-    const start = new Date(JOURNEY_START_DATE);
-    const end = new Date(JOURNEY_END_DATE);
+    const start = parseLocalDate(JOURNEY_START_DATE);
+    const end = parseLocalDate(JOURNEY_END_DATE);
     
     // Normalize to midnight
     const todayMidnight = new Date();
@@ -47,7 +47,7 @@ export default function Header() {
       });
     } else {
       const timeDiff = end.getTime() - todayMidnight.getTime();
-      const remainingDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1; // include today
+      const remainingDays = Math.round(timeDiff / (1000 * 60 * 60 * 24)) + 1; // include today
       const elapsedDays = totalDays - remainingDays;
       const percentage = Math.round((elapsedDays / totalDays) * 100);
       
